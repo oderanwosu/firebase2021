@@ -81,10 +81,3 @@ class _StreamerState extends State<Streamer> {
   }
 }
 
-FutureBuilder(
-        // Initialize FlutterFire
-        future: Firebase.initializeApp(),
-        builder: (context, snapshot) {
-          return Streamer();
-        });
-  }
