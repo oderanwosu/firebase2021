@@ -19,9 +19,9 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return Login(toggleView: toggleView);
+      return MaterialApp(home: Login(toggleView: toggleView));
     } else {
-      return RegisterAccount(toggleView: toggleView);
+      return MaterialApp(home: RegisterAccount(toggleView: toggleView));
     }
   }
 }

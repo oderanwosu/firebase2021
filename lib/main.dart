@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_articles/screens/auth/authenticate.dart';
 import 'package:flutter_articles/screens/feed_articles.dart';
 import 'package:flutter_articles/screens/wrapper.dart';
 import 'package:provider/provider.dart';
@@ -73,11 +74,16 @@ class _StreamerState extends State<Streamer> {
 
   @override
   Widget build(BuildContext context) {
-    
-    return StreamProvider<FlutterArticlesUser?>.value(
-        value: _streamProvider,
-        initialData: null,
-        builder: (context, child) => MaterialApp(home: Wrapper()));
+    return StreamBuilder(
+        stream: _streamProvider,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data == null) {
+            return snapshot.connectionState == ConnectionState.waiting
+                ? Loading()
+                : Authenticate();
+          } else {
+            return FeedArticles();
+          }
+        });
   }
 }
-
