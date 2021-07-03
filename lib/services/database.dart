@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_articles/models/flutterArticlesUser.dart';
 import 'package:flutter_articles/services/auth.dart';
+import 'package:uuid/uuid.dart';
 
 class DataBaseService {
   final connection = FirebaseDatabase.instance.reference();
@@ -17,16 +18,19 @@ class DataBaseService {
       'username': username,
       //add as many attributes as you want
     });
+  }
 
-    Future<void> saveArticle(FlutterArticlesUser user, imageURL, title, text) async {
-      final articleReference = connection.child('users').child(user.uid);
-
-      articleReference.set({
-        'uid': uid,
-        'title': title,
-        'imageURL': imageURL,
-        'text': text,
-      });
-    }
+  Future<void> saveArticle(user, imageURL, title, text) async {
+    var id = Uuid().v1();
+    final articleReference =
+        connection.child('users').child(user.uid).child('articles').child(id);
+    print('Article ID: ' + id);
+    articleReference.set({
+      'uid': id,
+      'ownerID': uid,
+      'title': title,
+      'imageURL': imageURL,
+      'text': text,
+    });
   }
 }
