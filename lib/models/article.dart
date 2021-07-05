@@ -1,11 +1,11 @@
 class Article {
-  final String uid;
+   String? uid;
   final String ownerID;
   final String imageURL;
   final String title;
   final String text;
   Article(
-      {required this.uid,
+      { this.uid,
       required this.ownerID,
       required this.imageURL,
       required this.title,

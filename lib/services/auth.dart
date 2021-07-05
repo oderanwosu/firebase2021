@@ -55,7 +55,7 @@ class AuthService {
           email: email, password: password);
 
       User? user = result.user;
-      DataBaseService(uid: user!.uid).saveFlutterArticlesUser(user, username);
+      DataBaseService(uid: user!.uid).updateFlutterArticlesUser(user, username);
 
       return _userFromFirebaseUser(user);
     } catch (e) {

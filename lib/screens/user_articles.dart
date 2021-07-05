@@ -32,20 +32,20 @@ class _UserArticlesState extends State<UserArticles> {
               onPressed: () {},
               child: Builder(
                 builder: (context) => Center(
-                  child: TextButton(
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateArticle())),
-                    child: Icon(
-                      Icons.add_circle_outline_outlined,
-                      color: Colors.white,
-                    ),
-                  ),
+                  // child: TextButton(
+                  //   onPressed: () => Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => CreateArticle(currentUser: cu,))),
+                  //   child: Icon(
+                  //     Icons.add_circle_outline_outlined,
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
                 ),
               ),
               elevation: 3.0,
             ),
-            body: ArticlesList()));
+            body: Container()));
   }
 }

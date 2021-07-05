@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_articles/models/article.dart';
+import 'package:flutter_articles/models/flutterArticlesUser.dart';
 
 import 'article.dart';
 
-
 class ArticleThumbNail extends StatefulWidget {
-  const ArticleThumbNail(
-      {Key? key,
-      required this.title,
-      required this.subtitle,
-      required this.leadingLogo})
-      : super(key: key);
+  const ArticleThumbNail({required this.currentUser, required this.article});
 
-  final String title;
-  final String subtitle;
-  final String leadingLogo;
+  final Article article;
+  final FlutterArticlesUser currentUser;
 
   @override
   _ArticleThumbNailState createState() => _ArticleThumbNailState();
@@ -29,14 +24,14 @@ class _ArticleThumbNailState extends State<ArticleThumbNail> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ArticlePage(),
+                builder: (context) => ArticlePage(currentUser: widget.currentUser, article: widget.article),
               ));
         },
         child: Card(
           elevation: 0.0,
           child: ListTile(
             leading: FlutterLogo(size: 72.0),
-            title: Text('Three-line ListTile'),
+            title: Text(widget.article.title),
             subtitle:
                 Text('A sufficiently long subtitle warrants three lines.'),
             isThreeLine: true,
@@ -48,11 +43,12 @@ class _ArticleThumbNailState extends State<ArticleThumbNail> {
 }
 
 class ArticlesList extends StatefulWidget {
-  const ArticlesList({
-    Key? key,
-    /*required this.articleList, */
-  }) : super(key: key);
+  const ArticlesList({required this.currentUser, required this.articles
+      /*required this.articleList, */
+      });
 
+  final List<Article> articles;
+  final FlutterArticlesUser currentUser;
   //final List<String> articleList;
   @override
   _ArticlesListState createState() => _ArticlesListState();
@@ -64,12 +60,10 @@ class _ArticlesListState extends State<ArticlesList> {
     return ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
+        itemCount: widget.articles.length,
         itemBuilder: (context, index) {
           return ArticleThumbNail(
-              title: "How to do Something",
-              subtitle: "Learn How to do something",
-              leadingLogo: "Hello");
+              currentUser: widget.currentUser, article: widget.articles[index]);
         });
   }
 }

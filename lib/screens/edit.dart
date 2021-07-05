@@ -1,54 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_articles/models/FlutterArticlesUser.dart';
 import 'package:flutter_articles/models/article.dart';
-import 'package:flutter_articles/models/flutterArticlesUser.dart';
 import 'package:flutter_articles/screens/loading.dart';
 import 'package:flutter_articles/services/auth.dart';
 import 'package:flutter_articles/services/database.dart';
 
-class CreateArticle extends StatefulWidget {
-  const CreateArticle({required this.currentUser, required this.article});
+class EditArticle extends StatefulWidget {
+  const EditArticle({required this.currentUser, required this.article});
 
   final Article article;
 
   final FlutterArticlesUser currentUser;
 
   @override
-  _CreateArticleState createState() => _CreateArticleState(article);
+  _EditArticleState createState() => _EditArticleState();
 }
 
-class _CreateArticleState extends State<CreateArticle> {
- 
-
-  _CreateArticleState(this.article);
-
-  Article article;
+class _EditArticleState extends State<EditArticle> {
+  var imageURL = "";
+  var title = "";
+  var articleText = "";
+  String error = "";
+  String text = "";
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   final AuthService _auth = AuthService();
-  var imageURL;
-  String title = "";
-
-  String error = "";
-  String text = "";
-  
-  void initState() {
-   super.initState();
-   text = widget.article.text;
-   imageURL = widget.article.imageURL;
-   title = widget.article.title;
-  }
-  
-
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       home: loading
           ? Loading()
           : Scaffold(
               appBar: AppBar(
-                title: Text("Create Articles"),
+                title: Text("Edit Articles"),
                 leading: TextButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -62,12 +47,10 @@ class _CreateArticleState extends State<CreateArticle> {
                   elevation: 2.0,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      print(title);
                       await DataBaseService(uid: widget.currentUser.uid)
                           .updateArticle(
-                              widget.currentUser, imageURL, title, text,
-                              id: widget.article.uid);
-                      setState(() => loading = false);
+                              widget.currentUser, imageURL, title, text);
+                      setState(() => loading = true);
                     } else {
                       setState(() {
                         error = 'please supply a valid email';

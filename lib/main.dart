@@ -3,12 +3,13 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_articles/screens/auth/authenticate.dart';
 import 'package:flutter_articles/screens/feed_articles.dart';
-import 'package:flutter_articles/screens/wrapper.dart';
+
 import 'package:provider/provider.dart';
 
 import 'models/flutterArticlesUser.dart';
 import 'screens/auth/login.dart';
 import 'screens/auth/register.dart';
+import 'screens/feeds.dart';
 import 'screens/loading.dart';
 import 'services/auth.dart';
 
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     if (_error) {
       print(_error);
-      return FeedArticles();
+      return Container();
     }
 
     // Show a loader until FlutterFire is initialized
@@ -82,7 +83,7 @@ class _StreamerState extends State<Streamer> {
                 ? Loading()
                 : Authenticate();
           } else {
-            return FeedArticles();
+            return Feeds(currentUser: snapshot.data,);
           }
         });
   }
