@@ -28,8 +28,8 @@ class _EditArticleState extends State<EditArticle> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: loading
+    return 
+      loading
           ? Loading()
           : Scaffold(
               appBar: AppBar(
@@ -113,7 +113,7 @@ class _EditArticleState extends State<EditArticle> {
                       ],
                     ),
                   ),
-                ),
+                
               ),
             ),
     );

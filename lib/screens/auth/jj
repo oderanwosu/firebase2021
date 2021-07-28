@@ -1,0 +1,51 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_example2021/models/myAppUser.dart';
+
+class AuthService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //creates custom user from Firebase Auth
+  MyAppUser? _userFromFirebaseUser(User? user) {
+    return user != null ? MyAppUser(uid: user.uid, email: user.email) : null;
+  }
+
+  //creating a Firebase Auth user
+  Future registerFirebaseUser(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+
+      User? user = result.user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //logging Firebase Auth User
+  Future loginFirebaseUser(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      User? user = result.user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //signing out Firebase Auth User
+  Future signOut() async {
+    try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //get current user
+  Stream<MyAppUser?> get user =>
+      _auth.authStateChanges().map((_userFromFirebaseUser));
+}

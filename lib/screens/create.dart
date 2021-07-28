@@ -42,9 +42,9 @@ class _CreateArticleState extends State<CreateArticle> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return 
       
-      home: loading
+     loading
           ? Loading()
           : Scaffold(
               appBar: AppBar(
@@ -132,7 +132,7 @@ class _CreateArticleState extends State<CreateArticle> {
                   ),
                 ),
               ),
-            ),
+            
     );
   }
 }

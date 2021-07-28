@@ -47,9 +47,7 @@ class _ArticlePageState extends State<ArticlePage> {
             ;
           }
 
-          return MaterialApp(
-              home: Scaffold(
-            backgroundColor: Colors.white,
+          return Scaffold(
             appBar: AppBar(
               leading: TextButton(
                   onPressed: () {
@@ -93,8 +91,7 @@ class _ArticlePageState extends State<ArticlePage> {
                             ),
                             Text(
                               owner.username.toString(),
-                              style:
-                                  TextStyle(fontSize: 15.0, color: Colors.grey),
+                              style: TextStyle(fontSize: 15.0),
                               textAlign: TextAlign.left,
                             ),
                             Container(
@@ -155,7 +152,7 @@ class _ArticlePageState extends State<ArticlePage> {
                 )
               ],
             ),
-          ));
+          );
         });
   }
 }

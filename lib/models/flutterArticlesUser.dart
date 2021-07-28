@@ -5,3 +5,5 @@ class FlutterArticlesUser {
 
   FlutterArticlesUser({required this.uid, this.email, this.username});
 }
+
+

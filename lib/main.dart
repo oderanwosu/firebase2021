@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_articles/designs/themes.dart';
 import 'package:flutter_articles/screens/auth/authenticate.dart';
 import 'package:flutter_articles/screens/feed_articles.dart';
 
@@ -13,7 +14,8 @@ import 'screens/feeds.dart';
 import 'screens/loading.dart';
 import 'services/auth.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+    ChangeNotifierProvider(create: (context) => ProjTheme(), child: MyApp()));
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -75,16 +77,22 @@ class _StreamerState extends State<Streamer> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _streamProvider,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null) {
-            return snapshot.connectionState == ConnectionState.waiting
-                ? Loading()
-                : Authenticate();
-          } else {
-            return Feeds(currentUser: snapshot.data,);
-          }
-        });
+    final theme = Provider.of<ProjTheme>(context);
+    return MaterialApp(
+      theme: theme.currentTheme,
+      home: StreamBuilder(
+          stream: _streamProvider,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return snapshot.connectionState == ConnectionState.waiting
+                  ? Loading()
+                  : Authenticate();
+            } else {
+              return Feeds(
+                currentUser: snapshot.data,
+              );
+            }
+          }),
+    );
   }
 }

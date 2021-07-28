@@ -28,7 +28,6 @@ class _LoginState extends State<Login> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.white,
             appBar: AppBar(
               title: Text("Login"),
             ),
@@ -77,8 +76,10 @@ class _LoginState extends State<Login> {
                         minimumSize: Size(300, 50),
                       ),
                       onPressed: () async {
+                        //checks if the form fields are properly filled out
                         if (_formKey.currentState!.validate()) {
-                          setState(() => loading = true);
+                          
+                          //tries to create a new login
                           dynamic result = await _auth
                               .loginWithEmailAndPassword(email, password);
                           if (result == null) {

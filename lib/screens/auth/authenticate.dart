@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_articles/designs/themes.dart';
 import 'package:flutter_articles/screens/auth/register.dart';
 
 import 'login.dart';
@@ -19,9 +20,9 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return MaterialApp(home: Login(toggleView: toggleView));
+      return Login(toggleView: toggleView);
     } else {
-      return MaterialApp(home: RegisterAccount(toggleView: toggleView));
+      return RegisterAccount(toggleView: toggleView);
     }
   }
 }
